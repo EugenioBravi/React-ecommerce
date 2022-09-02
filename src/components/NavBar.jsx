@@ -6,7 +6,7 @@ const Navbar = () => {
     "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium";
 
   return (
-    <nav className="sticky bg-gray-800 py-2.5 flex justify-center">
+    <nav className="sticky bg-[#465775] py-2.5 flex justify-center">
       <div className="flex justify-between max-w-7xl w-full ">
 
         <h1 className="text-white text-bold text-3xl font-bold">Mi Tienda</h1>

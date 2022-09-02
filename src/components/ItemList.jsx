@@ -4,7 +4,7 @@ import Item from "./Item";
 
 const ItemList = ({ products }) => {
   return (
-    <div className="bg-gray-200 grid grid-cols-3 max-w-7xl w-full pl-12 min-h-screen">
+    <div className="grid grid-cols-3 max-w-7xl w-full pl-12 min-h-screen">
       {products.length ? (
         products.map((product) => <Item key={product.id} {...product} />)
       ) : (

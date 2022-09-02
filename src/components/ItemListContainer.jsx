@@ -26,7 +26,7 @@ const ItemListContainer = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100 h-auto flex justify-center ">
+    <div className="bg-[#59C9A5] h-auto flex justify-center ">
       <ItemList products={products} />
     </div>
   );
