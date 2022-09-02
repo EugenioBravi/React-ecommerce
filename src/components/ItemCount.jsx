@@ -1,6 +1,6 @@
 import { useState } from "react";
 const ItemCount = ({ stock, initial }) => {
-  const buttonStyle = "bg-blue-800 h-10 w-10  flex justify-center items-center";
+  const buttonStyle = "bg-blue-700 h-10 w-10  flex justify-center items-center ";
   const [counter, setCounter] = useState(stock == 0 ? "Sin stock" : initial);
 
   const addProduct = () => {
