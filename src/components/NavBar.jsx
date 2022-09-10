@@ -1,5 +1,6 @@
 import CartWidget from "./CartWidget";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const links =
@@ -9,31 +10,31 @@ const Navbar = () => {
     <nav className="sticky bg-[#465775] py-2.5 flex justify-center">
       <div className="flex justify-between max-w-7xl w-full ">
 
-        <h1 className="text-white text-bold text-3xl font-bold">Mi Tienda</h1>
+        <h1 className="text-white text-bold text-3xl font-bold"><Link to="/">Mi Tienda</Link></h1>
 
         <ul className="flex pt-2">
           <li>
-            <a href="#" className={links}>
-              Menu
-            </a>
+             <Link to={"/"} className={links} >
+              Menu</Link>
+           
           </li>
 
           <li>
-            <a href="#" className={links}>
-              Hombre
-            </a>
+            <Link to={"/categoria/mens-shirts"} className={links} >
+              Hombre</Link>
+            
           </li>
 
           <li>
-            <a href="#" className={links}>
+            <Link to={"/categoria/womens-dresses"} className={links}>
               Mujer
-            </a>
+            </Link>
           </li>
 
           <li>
-            <a href="#" className={links}>
-              Deportivo
-            </a>
+            <Link to={"/categoria/sunglasses"} className={links}>
+              Lentes para el sol
+            </Link>
           </li>
         </ul>
 

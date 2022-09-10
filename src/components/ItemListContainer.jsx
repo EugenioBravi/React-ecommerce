@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import ItemList from "./ItemList";
-import productsJSON from "./products.json";
+import { useParams } from "react-router-dom";
+import productsJSON from "../products.json";
 
 const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
-
+  const { category } = useParams();
   useEffect(() => {
     const getProducts = (data, time) =>
       new Promise((resolve, reject) => {
@@ -20,13 +21,13 @@ const ItemListContainer = () => {
 
     getProducts(productsJSON, 2000)
       .then((res) => {
-        setProducts(res);
+        setProducts((category)? res.filter((product) => product.category == category):res);
       })
       .catch((err) => console.log(err, ": no hay productos"));
-  }, []);
+  }, [category]);
 
   return (
-    <div className="bg-[#59C9A5] h-auto flex justify-center ">
+    <div className="bg-sky-200 h-auto flex justify-center ">
       <ItemList products={products} />
     </div>
   );
