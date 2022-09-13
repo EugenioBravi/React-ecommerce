@@ -11,6 +11,7 @@ const ItemDetailContainer = () => {
         setTimeout(() => {
           if (data) {
             resolve(data.find((product) => product.id == id));
+            
           } else {
             reject("Error");
           }
@@ -23,10 +24,10 @@ const ItemDetailContainer = () => {
       })
       .catch((err) => console.log(err, ": no hay productos"));
   }, [id]);
-
+  console.log(item)
   return (
     <div className="bg-sky-200 h-[1100px] flex justify-center ">
-      <ItemDetail item={item} />
+      <ItemDetail {...item} />
     </div>
   );
 };
