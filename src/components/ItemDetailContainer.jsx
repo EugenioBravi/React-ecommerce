@@ -22,9 +22,9 @@ const ItemDetailContainer = () => {
       .then((res) => {
         setItem(res);
       })
-      .catch((err) => console.log(err, ": no hay productos"));
+      .catch((err) => console.log(err, ": no hay producto"));
   }, [id]);
-  console.log(item)
+  
   return (
     <div className="bg-sky-200 h-[1100px] flex justify-center ">
       <ItemDetail {...item} />
