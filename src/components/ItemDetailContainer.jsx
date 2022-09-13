@@ -22,7 +22,7 @@ const ItemDetailContainer = () => {
       .then((res) => {
         setItem(res);
       })
-      .catch((err) => console.log(err, ": no hay producto"));
+      .catch((err) => console.log(err, ": no existe producto"));
   }, [id]);
   
   return (
