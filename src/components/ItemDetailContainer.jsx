@@ -3,24 +3,26 @@ import { useEffect, useState } from "react";
 import productsJSON from "../products.json";
 import { useParams } from "react-router-dom";
 const ItemDetailContainer = () => {
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState([]);
   const { id } = useParams();
   useEffect(() => {
-    getItem().then((data) => {
-      if (data) {
-    
-        setItem(data)
-      }
-    })
-  }, []);
+    const getItem = (data, time) =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (data) {
+            resolve(data.find((product) => product.id == id));
+          } else {
+            reject("Error");
+          }
+        }, time);
+      });
 
-  const getItem = () => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(productsJSON.find( product => product.id == id ));
-      }, 2000);
-    })
-  }
+    getItem(productsJSON, 2000)
+      .then((res) => {
+        setItem(res);
+      })
+      .catch((err) => console.log(err, ": no hay productos"));
+  }, [id]);
 
   return (
     <div className="bg-sky-200 h-[1100px] flex justify-center ">
