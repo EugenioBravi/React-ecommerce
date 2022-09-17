@@ -1,6 +1,18 @@
 import ItemCount from "./ItemCount";
+import { useState } from "react";
+import { useCartContext } from "./context/CartContext";
+import { Link } from "react-router-dom";
+const ItemDetail = ({ item }) => {
+  const { title, price, description, thumbnail, stock } = item;
+  const [goToCart, setGoToCart] = useState(false);
 
-const ItemDetail = ({ title, price, thumbnail, description, stock }) => {
+  const { addProduct } = useCartContext();
+
+  function onAdd(quantity) {
+    setGoToCart(true);
+    addProduct(item, quantity);
+  }
+
   return (
     <div className="bg-gray-200  w-[850px] h-96 my-4 p-3 flex rounded-xl text-black shadow-md shadow-black text-center">
       <div>
@@ -16,7 +28,17 @@ const ItemDetail = ({ title, price, thumbnail, description, stock }) => {
         <p className="w-[450px] font-medium mb-16 ">
           Descripcion : {description}
         </p>
-        <ItemCount stock={stock} initial={1} />
+        {goToCart ? (
+          <Link
+            to="/cart"
+            className="my-2 py-2 px-4 bg-blue-700 font-semibold rounded-xl shadow-sm shadow-gray-300 text-white"
+          >
+            Proceed to checkout
+          </Link>
+        ) : (
+          <ItemCount stock={stock} initial={1} onAdd={onAdd} />
+        )}
+
         <h3 className="my-6 text-lg">Stock disponible: {stock} </h3>
       </div>
     </div>
