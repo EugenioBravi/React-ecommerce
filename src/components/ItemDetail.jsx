@@ -4,12 +4,12 @@ import { useCartContext } from "./context/CartContext";
 import { Link } from "react-router-dom";
 const ItemDetail = ({ item }) => {
   const { title, price, description, thumbnail, stock } = item;
-  const [goToCart, setGoToCart] = useState(false);
+  const [productQuantity, setProductQuantity] = useState(0);
 
   const { addProduct } = useCartContext();
 
   function onAdd(quantity) {
-    setGoToCart(true);
+    setProductQuantity(quantity);
     addProduct(item, quantity);
   }
 
@@ -28,7 +28,7 @@ const ItemDetail = ({ item }) => {
         <p className="w-[450px] font-medium mb-16 ">
           Descripcion : {description}
         </p>
-        {goToCart ? (
+        {productQuantity ? (
           <Link
             to="/cart"
             className="my-2 py-2 px-4 bg-blue-700 font-semibold rounded-xl shadow-sm shadow-gray-300 text-white"
