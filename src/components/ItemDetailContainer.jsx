@@ -1,27 +1,16 @@
 import ItemDetail from "./ItemDetail";
 import { useEffect, useState } from "react";
-import productsJSON from "../products.json";
 import { useParams } from "react-router-dom";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 const ItemDetailContainer = () => {
   const [item, setItem] = useState([]);
   const { id } = useParams();
   useEffect(() => {
-    const getItem = (data, time) =>
-      new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (data) {
-            resolve(data.find((product) => product.id == id));
-          } else {
-            reject("Error");
-          }
-        }, time);
-      });
-
-    getItem(productsJSON, 2000)
-      .then((res) => {
-        setItem(res);
-      })
-      .catch((err) => console.log(err, ": no existe producto"));
+    const querydb = getFirestore();
+    const queryDoc = doc(querydb, "items", id);
+    getDoc(queryDoc)
+    .then((res) => setItem(res.data()))
+    .catch((err) => console.log(err, ": no existe producto"));
   }, [id]);
 
   return (

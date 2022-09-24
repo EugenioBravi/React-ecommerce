@@ -2,28 +2,35 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
-import productsJSON from "../products.json";
-
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
 const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
   const { category } = useParams();
   useEffect(() => {
-    const getProducts = (data, time) =>
-      new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (data) {
-            resolve(data);
-          } else {
-            reject("Error");
-          }
-        }, time);
-      });
+    const querydb = getFirestore();
+    const queryCollection = collection(querydb, "items");
 
-    getProducts(productsJSON, 2000)
-      .then((res) => {
-        setProducts((category)? res.filter((product) => product.category == category):res);
-      })
-      .catch((err) => console.log(err, ": no hay productos"));
+    if (category) {
+      const queryFilter = query(
+        queryCollection,
+        where("category", "==", category)
+      );
+      getDocs(queryFilter).then((res) =>
+        setProducts(res.docs.map((prod) => (prod.data() )))
+        .catch((err) => console.log(err, ": no hay productos"))
+      );
+    } else {
+      getDocs(queryCollection).then((res) =>
+        setProducts(res.docs.map((prod) => (prod.data() )))
+        .catch((err) => console.log(err, ": no hay productos"))
+      );
+    }
   }, [category]);
 
   return (
