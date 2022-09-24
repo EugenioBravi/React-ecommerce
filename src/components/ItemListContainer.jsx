@@ -21,15 +21,13 @@ const ItemListContainer = () => {
         queryCollection,
         where("category", "==", category)
       );
-      getDocs(queryFilter).then((res) =>
-        setProducts(res.docs.map((prod) => (prod.data() )))
-        .catch((err) => console.log(err, ": no hay productos"))
-      );
+      getDocs(queryFilter)
+        .then((res) => setProducts(res.docs.map((prod) => prod.data())))
+        .catch((err) => console.log(err, ": no hay productos"));
     } else {
-      getDocs(queryCollection).then((res) =>
-        setProducts(res.docs.map((prod) => (prod.data() )))
-        .catch((err) => console.log(err, ": no hay productos"))
-      );
+      getDocs(queryCollection)
+        .then((res) => setProducts(res.docs.map((prod) => prod.data())))
+        .catch((err) => console.log(err, ": no hay productos"));
     }
   }, [category]);
 
