@@ -1,7 +1,7 @@
 import { useCartContext } from "./context/CartContext";
 import { Link } from "react-router-dom";
 const Cart = () => {
-  const { cart, totalPrice, removeItem } = useCartContext();
+  const { cart, totalPrice, removeItem, clear } = useCartContext();
   return (
     <div className="w-screen h-screen flex items-center flex-col bg-gray-300 font-medium pt-3">
       {cart.length ? (
@@ -49,7 +49,21 @@ const Cart = () => {
           </Link>
         </>
       )}
-      {cart.length ? <h2 className="bg-white w-[768px] text-center border border-gray-500">Total: ${totalPrice}</h2> : <></>}
+      {cart.length ? (
+        <>
+          <h2 className="bg-white w-[768px] text-center border border-gray-500">
+            Total: ${totalPrice}
+          </h2>{" "}
+          <button
+            className="py-2 px-4 bg-blue-700 font-semibold rounded-xl shadow-sm shadow-gray-300 text-white"
+            onClick={() => clear()}
+          >
+            Vaciar carrito
+          </button>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
