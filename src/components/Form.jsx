@@ -1,16 +1,18 @@
 import { useState } from "react";
-
+import Swal from "sweetalert2";
 import { useCartContext } from "./context/CartContext";
-import { addDoc, collection, getFirestore} from 'firebase/firestore';
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+import withReactContent from "sweetalert2-react-content";
 const Form = () => {
-  
-  const {cart, totalPrice, clearCart} = useCartContext();
+  const { cart, totalPrice, clearCart } = useCartContext();
   const [datos, setDatos] = useState({
     nombre: "",
     apellido: "",
     email: "",
     celular: "",
   });
+
+  const MySwal = withReactContent(Swal);
 
   const handleInputChange = (event) => {
     setDatos({
@@ -23,7 +25,7 @@ const Form = () => {
 
   const sendOrder = (event) => {
     event.preventDefault();
-    
+
     const order = {
       buyer: datos,
       items: cart,
@@ -34,7 +36,13 @@ const Form = () => {
     const db = getFirestore();
     const ordersCollection = collection(db, "orders");
     addDoc(ordersCollection, order).then(({ id }) =>
-      console.log(id)
+      MySwal.fire({
+        title: "Felicitaciones!",
+        text: "Su numero de pedido es: " + id,
+        icon: "success",
+      }).then(function () {
+        window.location.href = "/";
+      })
     );
 
     clearCart;
