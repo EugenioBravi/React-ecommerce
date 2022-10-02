@@ -28,6 +28,12 @@ const Cart = () => {
           >
             Vaciar carrito
           </button>
+          <Link
+            to="/form"
+            className="my-2 py-2 px-4 bg-blue-700 font-semibold rounded-xl shadow-sm shadow-gray-300 text-white"
+          >
+            Terminar compra
+          </Link>
         </>
       ) : (
         <></>
