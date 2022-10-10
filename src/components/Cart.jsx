@@ -18,23 +18,25 @@ const Cart = () => {
         </>
       )}
       {cart.length ? (
-        <>
-          <h2 className="bg-white w-[768px] text-center border border-gray-500">
+        <div className="bg-white">
+          <h2 className=" w-[768px] text-center border border-gray-500">
             Total: ${totalPrice}
           </h2>{" "}
-          <button
-            className="py-2 px-4 bg-blue-700 font-semibold rounded-xl shadow-sm shadow-gray-300 text-white"
-            onClick={() => clear()}
-          >
-            Vaciar carrito
-          </button>
-          <Link
-            to="/form"
-            className="my-2 py-2 px-4 bg-blue-700 font-semibold rounded-xl shadow-sm shadow-gray-300 text-white"
-          >
-            Terminar compra
-          </Link>
-        </>
+          <div className="border border-gray-500 flex justify-between items-center">
+            <Link
+              to="/form"
+              className=" py-2 px-4 bg-blue-700 font-semibold rounded-xl shadow-sm shadow-gray-300 text-white m-5 my-2"
+            >
+              Terminar compra
+            </Link>
+            <button
+              className=" px-4 bg-red-500 font-semibold rounded-xl shadow-sm shadow-gray-300 text-white mx-5 h-[40px]"
+              onClick={() => clear()}
+            >
+              Vaciar carrito
+            </button>
+          </div>
+        </div>
       ) : (
         <></>
       )}

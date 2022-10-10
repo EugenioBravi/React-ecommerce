@@ -63,7 +63,7 @@ const Form = () => {
                 </label>
                 <input
                   type="text"
-                  name="nombre"
+                  name="nombre" required
                   id="nombre"
                   autoComplete="given-name"
                   className={inputStyle}
@@ -77,7 +77,7 @@ const Form = () => {
                 </label>
                 <input
                   type="text"
-                  name="apellido"
+                  name="apellido" required
                   id="apellido"
                   autoComplete="family-name"
                   className={inputStyle}
@@ -91,7 +91,7 @@ const Form = () => {
                 </label>
                 <input
                   type="email"
-                  name="email"
+                  name="email" required
                   id="email"
                   autoComplete="email"
                   className={inputStyle}
@@ -105,7 +105,7 @@ const Form = () => {
                 </label>
                 <input
                   type="phone"
-                  name="phone"
+                  name="phone" required
                   id="phone"
                   className={inputStyle}
                   onChange={handleInputChange}
