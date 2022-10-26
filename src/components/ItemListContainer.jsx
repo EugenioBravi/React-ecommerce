@@ -1,36 +1,29 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import ItemList from "./ItemList";
+import { ClipLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
-import {
-  collection,
-  getDocs,
-  getFirestore,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getFirestore } from "firebase/firestore";
+import { useFirestoreQuery } from "@react-query-firebase/firestore";
 const ItemListContainer = () => {
-  const [products, setProducts] = useState([]);
   const { category } = useParams();
-  useEffect(() => {
-    const querydb = getFirestore();
-    const queryCollection = collection(querydb, "items");
+  const db = getFirestore();
+  const queryCollection = collection(db, "items");
+  const query = useFirestoreQuery(["items"], queryCollection);
 
-    if (category) {
-      const queryFilter = query(
-        queryCollection,
-        where("category", "==", category)
-      );
-      getDocs(queryFilter)
-        .then((res) => setProducts(res.docs.map((prod) => prod.data())))
-        .catch((err) => console.log(err, ": no hay productos"));
-    } else {
-      getDocs(queryCollection)
-        .then((res) => setProducts(res.docs.map((prod) => prod.data())))
-        .catch((err) => console.log(err, ": no hay productos"));
-    }
-  }, [category]);
+  if (query.isLoading) {
+    return (
+      <div className="bg-sky-200 h-screen flex justify-center font-bold">
+        Cargando productos <ClipLoader />
+      </div>
+    );
+  }
+  const snapshot = query.data;
 
+  let products = snapshot.docs.map((docSnapshot) => docSnapshot.data());
+
+  if (category) {
+    products = products.filter((product) => product.category == category);
+  }
   return (
     <div className="bg-sky-200 h-auto flex justify-center ">
       <ItemList products={products} />
