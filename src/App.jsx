@@ -7,22 +7,28 @@ import Cart from "./components/Cart";
 import Form from "./components/Form";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import { AuthContextProvider } from "./components/context/AuthContext";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <CartContextProvider>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<ItemListContainer />} />
-          <Route path="/form" element={<Form />} />
-          <Route path="/item/:id" element={<ItemDetailContainer />} />
-          <Route path="/categoria/:category" element={<ItemListContainer />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/log" element={<Login/>} />
-          <Route path="/reg" element={<Register/>} />
-        </Routes>
-      </CartContextProvider>
+      <AuthContextProvider>
+        <CartContextProvider>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<ItemListContainer />} />
+            <Route path="/form" element={<Form />} />
+            <Route path="/item/:id" element={<ItemDetailContainer />} />
+            <Route
+              path="/categoria/:category"
+              element={<ItemListContainer />}
+            />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/log" element={<Login />} />
+            <Route path="/reg" element={<Register />} />
+          </Routes>
+        </CartContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   );
 };

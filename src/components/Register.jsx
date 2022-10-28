@@ -1,10 +1,9 @@
-
+import { useAuthContext } from "./context/AuthContext";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../Firebase/Index";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-export function Register() {
-  
+
+export const Register = () => {
+  const { signup } = useAuthContext();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -17,7 +16,7 @@ export function Register() {
     e.preventDefault();
     setError("");
     try {
-      await createUserWithEmailAndPassword(auth,user.email, user.password);
+      signup(user.email, user.password);
       navigate("/");
     } catch (error) {
       setError(error.message);
@@ -26,7 +25,7 @@ export function Register() {
 
   return (
     <div className="w-full max-w-xs m-auto text-black">
-      {error && <p>{error.mesage}</p>}
+      {error && <p>{error}</p>}
 
       <form
         onSubmit={handleSubmit}
@@ -68,10 +67,11 @@ export function Register() {
       </form>
       <p className="my-4 text-sm flex justify-between px-3">
         Already have an Account?
-        <Link to="/login" className="text-blue-700 hover:text-blue-900">
+        <Link to="/log" className="text-blue-700 hover:text-blue-900">
           Login
         </Link>
       </p>
     </div>
   );
-}
+};
+export default Register;
