@@ -2,12 +2,12 @@ import React from "react";
 import ItemList from "./ItemList";
 import { ClipLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
-import { collection, getFirestore } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import { useFirestoreQuery } from "@react-query-firebase/firestore";
+import { firestore } from "../Firebase/Index";
 const ItemListContainer = () => {
   const { category } = useParams();
-  const db = getFirestore();
-  const queryCollection = collection(db, "items");
+  const queryCollection = collection(firestore, "items");
   const query = useFirestoreQuery(["items"], queryCollection);
 
   if (query.isLoading) {

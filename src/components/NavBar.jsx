@@ -39,12 +39,10 @@ const Navbar = () => {
         </ul>
 
         <div className="flex">
-          <button className="text-white pr-4 text-sm font-medium">
-            Ingresar
-          </button>
-          <button className="bg-blue-800 px-6 py-2 rounded cursor-pointer text-white text-sm font-medium">
-            Registrarse
-          </button>
+        <Link to={"/log"} className={`${links} bg-blue-400 p2`} >
+              Login</Link>
+              <Link to={"/reg"} className={`${links} bg-blue-800 p2`} >
+              Register</Link>
           <CartWidget />
         </div>
       </div>
