@@ -1,5 +1,4 @@
 import React from "react";
-import { ClipLoader } from "react-spinners";
 import Item from "./Item";
 
 const ItemList = ({ products }) => {
@@ -9,9 +8,8 @@ const ItemList = ({ products }) => {
         products.map((product) => <Item key={product.id} {...product} />)
       ) : (
         <>
-          <div></div>
-          <h3 className=" font-semibold text-lg  text-center w-7xl h-12 pt-10">
-            Cargando productos <ClipLoader />
+          <h3 className=" font-semibold text-3xl ml-auto h-12 pt-10 w-screen">
+            La categoria no existe
           </h3>
         </>
       )}

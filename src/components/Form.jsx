@@ -3,8 +3,10 @@ import Swal from "sweetalert2";
 import { useCartContext } from "./context/CartContext";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import withReactContent from "sweetalert2-react-content";
+import { useNavigate } from "react-router-dom";
 const Form = () => {
-  const { cart, totalPrice, clearCart } = useCartContext();
+  const navigate = useNavigate();
+  const { cart, totalPrice, clear } = useCartContext();
   const [datos, setDatos] = useState({
     nombre: "",
     apellido: "",
@@ -38,17 +40,17 @@ const Form = () => {
 
     const db = getFirestore();
     const ordersCollection = collection(db, "orders");
-    addDoc(ordersCollection, order).then(({ id }) =>
-      MySwal.fire({
-        title: "Felicitaciones!",
-        text: "Su numero de pedido es: " + id,
-        icon: "success",
-      }).then(function () {
-        window.location.href = "/";
-      })
-    );
+    addDoc(ordersCollection, order).then(
+      ({ id }) =>
+        MySwal.fire({
+          title: "Felicitaciones!",
+          text: "Su numero de pedido es: " + id,
+          icon: "success",
+        })
 
-    clearCart;
+      .then(navigate("/"))
+    );
+    clear();
   };
 
   return (
@@ -63,7 +65,8 @@ const Form = () => {
                 </label>
                 <input
                   type="text"
-                  name="nombre" required
+                  name="nombre"
+                  required
                   id="nombre"
                   autoComplete="given-name"
                   className={inputStyle}
@@ -77,7 +80,8 @@ const Form = () => {
                 </label>
                 <input
                   type="text"
-                  name="apellido" required
+                  name="apellido"
+                  required
                   id="apellido"
                   autoComplete="family-name"
                   className={inputStyle}
@@ -91,7 +95,8 @@ const Form = () => {
                 </label>
                 <input
                   type="email"
-                  name="email" required
+                  name="email"
+                  required
                   id="email"
                   autoComplete="email"
                   className={inputStyle}
@@ -105,7 +110,8 @@ const Form = () => {
                 </label>
                 <input
                   type="phone"
-                  name="phone" required
+                  name="phone"
+                  required
                   id="phone"
                   className={inputStyle}
                   onChange={handleInputChange}

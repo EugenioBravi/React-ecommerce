@@ -1,17 +1,24 @@
 import ItemDetail from "./ItemDetail";
-import { useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc } from "firebase/firestore";
+import { useFirestoreDocument } from "@react-query-firebase/firestore";
 const ItemDetailContainer = () => {
-  const [item, setItem] = useState([]);
   const { id } = useParams();
-  useEffect(() => {
-    const querydb = getFirestore();
-    const queryDoc = doc(querydb, "items", id);
-    getDoc(queryDoc)
-    .then((res) => setItem(res.data()))
-    .catch((err) => console.log(err, ": no existe producto"));
-  }, [id]);
+
+  const querydb = getFirestore();
+  const queryDoc = doc(querydb, "items", id);
+  const getItem = useFirestoreDocument(["items", id], queryDoc);
+
+  if (getItem.isLoading) {
+    return (
+      <div className="bg-sky-200 h-[1100px] flex justify-center font-bold">
+        Cargando producto <ClipLoader />
+      </div>
+    );
+  }
+
+  const item = getItem.data.data();
 
   return (
     <div className="bg-sky-200 h-[1100px] flex justify-center ">
